@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Paperang Web Bluetooth 接続＋通知＋切断</title>
+  <script src="command.js"></script>
+  <script src="image_mode.js"></script>
+  <script src="result_data.js"></script>
+  <script src="paperang.js"></script>
+</head>
+<body>
+  <h1>Paperang 接続テスト（切断結果をbooleanで返す）</h1>
+  <button id="connectBtn">Paperangに接続</button>
+  <button id="printBtn" disabled>テスト印刷コマンド送信</button>
+  <button id="disconnectBtn" disabled>切断する</button>
+  <pre id="output"></pre>
+
+  <script>
+    const connectBtn = document.getElementById('connectBtn');
+    const printBtn = document.getElementById('printBtn');
+    const disconnectBtn = document.getElementById('disconnectBtn');
+    const output = document.getElementById('output');
+
+    let paperang = new Paperang();
+
+    function log(msg) {
+      output.textContent += msg + '\n';
+      output.scrollTop = output.scrollHeight;
+    }
+
+    connectBtn.addEventListener('click', async () => {
+
+        // 選択
+        await paperang.selectDevice();
+
+        // 接続
+        await paperang.connect();
+
+        printBtn.disabled = false;
+        disconnectBtn.disabled = false;
+        connectBtn.disabled = true;
+
+    });
+
+    printBtn.addEventListener('click', async () => {
+      paperang.execute(Command.PRINT_TEST_PAGE, []);
+    });
+
+    disconnectBtn.addEventListener('click', async () => {
+         await paperang.disconnect();
+          printBtn.disabled = true;
+          disconnectBtn.disabled = true;
+          connectBtn.disabled = false;
+
+    });
+  </script>
+</body>
+</html>
