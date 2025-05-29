@@ -3,7 +3,8 @@
 モバイルプリンターPAPERANG(FT-057)をJavaScriptで利用するライブラリです。
 現在作成中です。
 
-完成させるかどうかも怪しい・・・
+[paperangsample](https://github.com/project-dev/paperangsample)と同じくらいの機能にする予定。
+ただし、完成させるかどうかも怪しい・・・
 
 |OS|Browser|State|
 |--|---|
